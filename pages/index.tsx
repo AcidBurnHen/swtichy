@@ -1,9 +1,11 @@
 import Head from "next/head";
+import React from "react";
 
 // Components
-import Footer from "@/components/Footer";
+import Footer from "../components/Footer";
+import Calendaro from "../components/Calendar";
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
       <Head>
@@ -12,9 +14,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Calendar app</h1>
+      <div>
+        <h1>Calendar app</h1>
+        <Calendaro />
+      </div>
 
       <Footer />
     </div>
   );
-}
+};
+
+export default Home;
