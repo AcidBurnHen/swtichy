@@ -2,11 +2,11 @@ import React, { FunctionComponent, ReactElement } from "react";
 import { getMonthAndYear, getWeekdays, getFirstDayOfMonth, getDaysOfMonth } from "../lib/datetime";
 
 const Calendar: FunctionComponent = () => {
-  const date: Date = new Date();
-  const weekdays: String[] = getWeekdays(date);
-  const month: String = getMonthAndYear(date);
-  const firstDay: Number = getFirstDayOfMonth(date);
-  const monthDays: Number = getDaysOfMonth(date);
+  const date = new Date();
+  const weekdays = getWeekdays(date);
+  const month = getMonthAndYear(date);
+  const firstDay = getFirstDayOfMonth(date);
+  const monthDays = getDaysOfMonth(date);
 
   const tableHeadings: ReactElement[] = weekdays.map((day, index) => {
     return <th key={index}>{day}</th>;
@@ -22,7 +22,7 @@ const Calendar: FunctionComponent = () => {
     daysInAMonth.push(<td key={d}>{d}</td>);
   }
 
-  const totalSpace: any[] = [...emptySpace, ...daysInAMonth];
+  const totalSpace = [...emptySpace, ...daysInAMonth];
   let rows: any[] = [];
   let cells: any[] = [];
 
@@ -40,7 +40,7 @@ const Calendar: FunctionComponent = () => {
     }
   });
 
-  let days: ReactElement[] = rows.map((day, index) => {
+  const days: ReactElement[] = rows.map((day, index) => {
     return <tr key={index}>{day}</tr>;
   });
 

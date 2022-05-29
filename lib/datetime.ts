@@ -1,28 +1,32 @@
 import moment from "moment";
-const date = new Date();
 
-export const getMonthAndYear = (date): String => {
+export const getMonthAndYear = (date: Date): string => {
   const month = moment(date).month();
   const monthAndYear = moment(date).month(month).format("MMMM YYYY");
 
   return monthAndYear;
 };
 
-export const getDays = (date): Number => moment(date).weekday();
+export const getDays = (date: Date): number => moment(date).weekday();
 
-export const getWeekdays = (date): String[] => {
+export const getWeekdays = (date: Date): string[] => {
   const days = moment.weekdays();
-  days.push(days.shift());
+  const newDays = days.shift()!;
+  days.push(newDays);
 
   return days;
 };
 
-export const getMonth = (date): Number => moment(date).month();
+export const getMonth = (date: Date): number => moment(date).month();
 
-export const getDaysOfMonth = (date): Number => moment(date).daysInMonth();
+export const getDaysOfMonth = (date: Date): number => moment(date).daysInMonth();
 
-export const getFirstDayOfMonth = (date): Number => {
-  const day = moment(date).startOf("month").format("DD");
-
-  return Number(day);
+export const getFirstDayOfMonth = (date: Date): number => {
+  const day = moment(date).startOf("month");
+  if (day.day() % 7 === 0) {
+    const firstDay = day.add(1, "day").day(1);
+    return Number(firstDay);
+  } else {
+    return Number(day);
+  }
 };
