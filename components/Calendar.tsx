@@ -1,23 +1,22 @@
-import React, { FunctionComponent, ReactElement } from "react";
 import { getMonthAndYear, getWeekdays, getFirstDayOfMonth, getDaysOfMonth } from "../lib/datetime";
 
-const Calendar: FunctionComponent = () => {
+const Calendar = () => {
   const date = new Date();
   const weekdays = getWeekdays(date);
   const month = getMonthAndYear(date);
   const firstDay = getFirstDayOfMonth(date);
   const monthDays = getDaysOfMonth(date);
 
-  const tableHeadings: ReactElement[] = weekdays.map((day, index) => {
+  const tableHeadings = weekdays.map((day, index) => {
     return <th key={index}>{day}</th>;
   });
 
-  let emptySpace: any[] = [];
-  for (let i = 0; i < firstDay; i++) {
+  let emptySpace = [];
+  for (let i = 1; i < firstDay; i++) {
     emptySpace.push(<td>{""}</td>);
   }
 
-  let daysInAMonth: any[] = [];
+  let daysInAMonth = [];
   for (let d = 1; d <= monthDays; d++) {
     daysInAMonth.push(<td key={d}>{d}</td>);
   }
@@ -40,7 +39,7 @@ const Calendar: FunctionComponent = () => {
     }
   });
 
-  const days: ReactElement[] = rows.map((day, index) => {
+  const days = rows.map((day, index) => {
     return <tr key={index}>{day}</tr>;
   });
 
