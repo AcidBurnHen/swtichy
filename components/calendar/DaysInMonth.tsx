@@ -6,7 +6,7 @@ interface Month {
 }
 
 const DaysInMonth: FC<Month> = ({month}) => {
-  const firstDay = getFirstDayOfMonth();
+  const firstDay = getFirstDayOfMonth(month);
   const monthDays = getNumOfDaysInMonth(month);
 
   let emptySpace = [];
