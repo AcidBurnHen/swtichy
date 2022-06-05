@@ -2,7 +2,7 @@ import Head from "next/head";
 
 // Components
 import Footer from "../components/Footer";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/calendar/Calendar";
 
 const Home = () => {
   return (
