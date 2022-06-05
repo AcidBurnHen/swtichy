@@ -32,11 +32,11 @@ const DaysInMonth = () => {
     }
   });
 
-  const days = rows.map((day, index) => {
+  const days = rows.map((day: string, index: number) => {
     return <tr key={index}>{day}</tr>;
   });
 
-  return <tbody>{days}</tbody>
+  return <tbody>{days}</tbody>;
 };
 
 export default DaysInMonth;

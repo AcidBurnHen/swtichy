@@ -1,20 +1,12 @@
-import Weekdays from "./Weekdays";
-import DaysInMonth from "./DaysInMonth";
-import MonthSelect from "./MonthSelect";
+import Weekdays from './Weekdays';
+import DaysInMonth from './DaysInMonth';
+import MonthSelect from './MonthSelect';
 
 const Calendar = () => {
-
   return (
     <div>
       <div>
-        <div>
-          <MonthSelect />
-        </div>
-        <div>
-          <button>Prev</button>
-          <button>Next</button>
-          
-        </div>
+        <MonthSelect />
       </div>
       <div>
         <table>
