@@ -1,13 +1,6 @@
-const moment = require("moment");
+const moment = require('moment');
 
-export const getMonthAndYear = (): string => {
-  const month = moment().month();
-  const monthAndYear = moment().month(month).format("MMMM YYYY");
-
-  return monthAndYear;
-};
-
-export const getDays = (date: Date) => moment(date).weekday();
+export const getYear: string = moment().format('YYYY');
 
 export const getWeekdays = (): string[] => {
   const days = moment.weekdays();
@@ -17,18 +10,14 @@ export const getWeekdays = (): string[] => {
   return days;
 };
 
-export const getMonth = () => moment().month();
+export const getMonths = (): string[] => moment.months()
 
-export const getMonths = () => {
-  const months = moment.months()
-  console.log(months)
-  return months
-}
+export const getMonth: string = moment().format("MMMM");
 
-export const getDaysOfMonth = () => moment().daysInMonth();
+export const getNumOfDaysInMonth  = (month: string): number => moment(month, "MMMM").daysInMonth();
 
 export const getFirstDayOfMonth = (): number => {
-  const day1 = moment().startOf("month");
+  const day1 = moment().startOf('month');
   const day = day1.day();
 
   return Number(day);
