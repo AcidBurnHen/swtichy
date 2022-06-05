@@ -1,8 +1,8 @@
-import { getFirstDayOfMonth, getDaysOfMonth } from '../../lib/datetime';
+import { getFirstDayOfMonth, getNumOfDaysInMonth } from '../../lib/datetime';
 
 const DaysInMonth = () => {
   const firstDay = getFirstDayOfMonth();
-  const monthDays = getDaysOfMonth();
+  const monthDays = getNumOfDaysInMonth;
 
   let emptySpace = [];
   for (let i = 1; i < firstDay; i++) {

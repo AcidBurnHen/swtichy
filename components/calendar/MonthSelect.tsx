@@ -1,23 +1,53 @@
-import { getMonthAndYear, getMonths } from '../../lib/datetime';
+import { getYear, getMonths, getMonth } from '../../lib/datetime';
+import {
+  useState,
+  ChangeEvent,
+  FC,
+  SetStateAction,
+  Dispatch,
+} from 'react';
 
-const MonthSelect = () => {
-  const monthAndYear = getMonthAndYear();
+interface CalendarProps {
+  setParentMonth: Dispatch<SetStateAction<string>>;
+}
+
+const MonthSelect: FC<CalendarProps> = ({ setParentMonth }): JSX.Element => {
+  const year = getYear;
+  const currentMonth = getMonth;
   const allMonths = getMonths();
 
+  const [month, setMonth] = useState('');
+
   const months = allMonths.map((month: string, index: number) => {
-    return <option key={index}>{month}</option>;
+    return (
+      <option value={month} key={index}>
+        {month}
+      </option>
+    );
   });
+
+  const handleMonth = (event: ChangeEvent<HTMLSelectElement>) => {
+    setMonth(event.target.value);
+    setParentMonth(event.target.value);
+  };
+
+  console.log(month);
 
   return (
     <div>
       <div>
         <button>Prev</button>
         <button>Next</button>
-
-        <h3>{monthAndYear}</h3>
+        <h3>
+          {month} {year}
+        </h3>
       </div>
       <label htmlFor='months'>Pick a month:</label>
-      <select name='months' id='months'>
+      <select
+        defaultValue={currentMonth}
+        onChange={handleMonth}
+        name='months'
+        id='months'>
         {months}
       </select>
     </div>
