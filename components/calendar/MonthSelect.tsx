@@ -7,16 +7,15 @@ import {
   Dispatch,
 } from 'react';
 
-interface CalendarProps {
+interface MonthProps {
   setParentMonth: Dispatch<SetStateAction<string>>;
 }
 
-const MonthSelect: FC<CalendarProps> = ({ setParentMonth }): JSX.Element => {
+const MonthSelect: FC<MonthProps> = ({ setParentMonth }) => {
   const year = getYear;
-  const currentMonth = getMonth;
   const allMonths = getMonths();
 
-  const [month, setMonth] = useState('');
+  const [month, setMonth] = useState(getMonth);
 
   const months = allMonths.map((month: string, index: number) => {
     return (
@@ -31,8 +30,6 @@ const MonthSelect: FC<CalendarProps> = ({ setParentMonth }): JSX.Element => {
     setParentMonth(event.target.value);
   };
 
-  console.log(month);
-
   return (
     <div>
       <div>
@@ -44,7 +41,7 @@ const MonthSelect: FC<CalendarProps> = ({ setParentMonth }): JSX.Element => {
       </div>
       <label htmlFor='months'>Pick a month:</label>
       <select
-        defaultValue={currentMonth}
+        defaultValue={month}
         onChange={handleMonth}
         name='months'
         id='months'>

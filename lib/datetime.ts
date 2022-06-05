@@ -14,7 +14,7 @@ export const getMonths = (): string[] => moment.months()
 
 export const getMonth: string = moment().format("MMMM");
 
-export const getNumOfDaysInMonth  = moment().daysInMonth();
+export const getNumOfDaysInMonth  = (month: string): number => moment(month, "MMMM").daysInMonth();
 
 export const getFirstDayOfMonth = (): number => {
   const day1 = moment().startOf('month');
