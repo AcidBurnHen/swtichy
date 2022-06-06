@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { getFirstDayOfMonth, getNumOfDaysInMonth } from '../../lib/datetime';
+import { getFirstDayOfMonth, getNumOfDaysInMonth, getMonth } from '../../lib/datetime';
 
 interface Month {
   month: string
@@ -9,9 +9,10 @@ const DaysInMonth: FC<Month> = ({month}) => {
   const firstDay = getFirstDayOfMonth(month);
   const monthDays = getNumOfDaysInMonth(month);
 
+
   let emptySpace = [];
   for (let i = 1; i < firstDay; i++) {
-    emptySpace.push(<td>{''}</td>);
+    emptySpace.push(<td key={i}>{''}</td>);
   }
 
   let daysInAMonth = [];

@@ -12,7 +12,7 @@ export const getWeekdays = (): string[] => {
 
 export const getMonths = (): string[] => moment.months()
 
-export const getMonth: string = moment().format("MMMM");
+export const getMonth = moment().format("MMMM");
 
 export const getNumOfDaysInMonth  = (month: string): number => moment(month, "MMMM").daysInMonth();
 
