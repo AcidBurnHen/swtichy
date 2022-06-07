@@ -1,9 +1,8 @@
 import Head from "next/head";
-import React from "react";
 
 // Components
 import Footer from "../components/Footer";
-import Calendaro from "../components/Calendar";
+import Calendar from "../components/calendar/Calendar";
 
 const Home = () => {
   return (
@@ -16,7 +15,7 @@ const Home = () => {
 
       <div>
         <h1>Calendar app</h1>
-        <Calendaro />
+        <Calendar />
       </div>
 
       <Footer />
