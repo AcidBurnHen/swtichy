@@ -1,6 +1,6 @@
 import Weekdays from './Weekdays';
 import DaysInMonth from './DaysInMonth';
-import MonthSelect from './MonthSelect';
+import SelectDate from './SelectDate';
 
 import { useState } from 'react';
 import { getMonth } from '../../lib/datetime';
@@ -13,7 +13,7 @@ const Calendar = () => {
     <div>
       <div>
         {parentMonth}
-        <MonthSelect setParentMonth={setParentMonth} />
+        <SelectDate setParentMonth={setParentMonth} />
       </div>
       <div>
         <table>
