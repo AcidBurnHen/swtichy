@@ -1,12 +1,12 @@
-
-import { dateData, getMonths, getMonth, getYear } from '../../lib/datetime';
+import { dateData, getMonths, getMonth, getYear, getYears } from '../../lib/datetime';
 import { useState, ChangeEvent, FC, SetStateAction, Dispatch } from 'react';
 
 interface MonthProps {
   setParentMonth: Dispatch<SetStateAction<string>>;
+  setParentYear:  Dispatch<SetStateAction<string>>
 }
 
-const SelectDate: FC<MonthProps> = ({ setParentMonth }) => {
+const SelectDate: FC<MonthProps> = ({ setParentMonth, setParentYear }) => {
   const [month, setMonth] = useState(getMonth);
   const [year, setYear] = useState(getYear);
 
@@ -18,18 +18,30 @@ const SelectDate: FC<MonthProps> = ({ setParentMonth }) => {
     );
   });
 
+  const years = getYears().map((year: string, index: number) => {
+    return (
+      <option value={year} key={index}>
+        {year}
+      </option>
+    )
+  })
+
   const nextMonth = () => {
-    const next = dateData.add(1, 'month').format('MMMM');
-    setMonth(next);
-    setParentMonth(next);
-    setYear(dateData.format("YYYY"))
+    const month = dateData.add(1, 'month').format('MMMM');
+    let year = dateData.format('YYYY')
+    setMonth(month);
+    setParentMonth(month);
+    setYear(year);
+    setParentYear(year);
   };
 
   const prevMonth = () => {
-    const prev = dateData.subtract(1, 'month').format('MMMM');
-    setMonth(prev);
-    setParentMonth(prev);
-    setYear(dateData.format("YYYY"))
+    let month = dateData.subtract(1, 'month').format('MMMM');
+    let year = dateData.format('YYYY')
+    setMonth(month);
+    setParentMonth(month);
+    setYear(year);
+    setParentYear(year)
   };
 
   const handleMonth = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -37,22 +49,33 @@ const SelectDate: FC<MonthProps> = ({ setParentMonth }) => {
     setParentMonth(event.target.value);
   };
 
+  const handleYear = (event: ChangeEvent<HTMLSelectElement>) => {
+    setYear(event.target.value);
+    setParentYear(event.target.value);
+  }
+
   return (
     <div>
       <div>
-        <h3>
-          {month} {year}
-        </h3>
         <button onClick={prevMonth}>Prev</button>
         <button onClick={nextMonth}>Next</button>
       </div>
-      <select
+     <div>
+     <select
         defaultValue={month}
         onChange={handleMonth}
         name='months'
         id='months'>
         {months}
       </select>
+      <select
+        defaultValue={year}
+        onChange={handleYear}
+        name='years'
+        id='years'>
+        {years}
+      </select>
+     </div>
     </div>
   );
 };

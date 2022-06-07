@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { getFirstDayOfMonth, getNumOfDaysInMonth } from '../../lib/datetime';
 
 interface Month {
-  month: string
+  month: string;
+  year: string;
 }
 
-const DaysInMonth: FC<Month> = ({month}) => {
-  const firstDay = getFirstDayOfMonth(month);
-  const monthDays = getNumOfDaysInMonth(month);
- 
+const DaysInMonth: FC<Month> = ({ month, year }) => {
+  const firstDay = getFirstDayOfMonth(month, year);
+  const monthDays = getNumOfDaysInMonth(month, year);
 
   let emptySpace = [];
   for (let i = 1; i < firstDay; i++) {
