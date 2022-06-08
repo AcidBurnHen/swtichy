@@ -5,6 +5,8 @@ import SelectDate from './SelectDate';
 import { useState } from 'react';
 import { getDay, getMonth, getYear } from '../../lib/datetime';
 
+import styled from 'styled-components';
+
 const Calendar = () => {
   const [parentMonth, setParentMonth] = useState(getMonth);
   const [parentYear, setParentYear] = useState(getYear);
@@ -12,17 +14,16 @@ const Calendar = () => {
 
   return (
     <div>
-      <h1>
+      <DateTitle>
         {parentDay} {parentMonth} {parentYear}
-      </h1>
+      </DateTitle>
 
-      <div>
-        <SelectDate
-          day={parentDay}
-          setParentMonth={setParentMonth}
-          setParentYear={setParentYear}
-        />
-      </div>
+      <SelectDate
+        day={parentDay}
+        setParentMonth={setParentMonth}
+        setParentYear={setParentYear}
+      />
+
       <div>
         <table>
           <thead>
@@ -40,3 +41,7 @@ const Calendar = () => {
 };
 
 export default Calendar;
+
+export const DateTitle = styled.h1`
+  font-size: 20px;
+`;
