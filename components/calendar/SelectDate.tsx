@@ -8,6 +8,7 @@ import {
 import { useState, ChangeEvent, FC, SetStateAction, Dispatch } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import {device} from '../../lib/helpers/devices';
 
 interface MonthProps {
   day: string;
@@ -128,7 +129,17 @@ export default SelectDate;
 
 export const SelectContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: 1fr, 1fr;
+  grid-template-rows: 1fr, 1fr
+
+  @media ${device.atMobileM} {
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media ${device.atTabletS} {
+    grid-template-columns: repeat(6, 1fr);
+  }
 `;
 
 export const DateTitle = styled.h1`
@@ -137,16 +148,32 @@ export const DateTitle = styled.h1`
 
 export const DateSelectContainer = styled.div`
   align-self: center;
-  justify-self: end;
+  justify-self: start;
+  grid-row: 2;
+  grid-column: 1;
 
-  grid-column: 4 / span 2;
+  @media ${device.atMobileM} {
+    grid-row: 1;
+    grid-column: 2 / span 3;
+    justify-self: center;
+  }
+
+  @media ${device.atTabletS} {
+    grid-column: 4 / span 2;
+    justify-self: end;
+  }
+
 `;
 
 export const MonthBtnContainer = styled.div`
   align-self: center;
   justify-self: end;
+  grid-row: 2;
+  grid-column: 6;
 
-  grid-column: 6
+  @media ${device.atMobileM} {
+    grid-row: 1;
+  }
 `;
 
 export const DateSelect = styled.select`
