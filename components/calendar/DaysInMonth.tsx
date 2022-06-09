@@ -6,6 +6,7 @@ import {
 } from '../../lib/datetime';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import styled from 'styled-components';
 
 interface Month {
   setParentDay: Dispatch<SetStateAction<string>>;
@@ -39,12 +40,13 @@ const DaysInMonth: FC<Month> = ({ setParentDay, month, year }) => {
 
   let daysInAMonth = [];
   for (let d = 1; d <= monthDays; d++) {
+    let currentDay = d === Number(day) ? "today" : "";
     daysInAMonth.push(
-      <td key={d}>
-        <button value={d} onClick={handleDay}>
+      <DayContainer className={currentDay} key={d}>
+        <DayBtn value={d} onClick={handleDay}>
           {d}
-        </button>
-      </td>
+        </DayBtn>
+      </DayContainer>
     );
   }
 
@@ -66,11 +68,49 @@ const DaysInMonth: FC<Month> = ({ setParentDay, month, year }) => {
     }
   });
 
-  const days = rows.map((day: string, index: number) => {
-    return <tr key={index}>{day}</tr>;
+  const days = rows.map((d: string, i: number) => {
+    return <DaysRow key={i}>{d}</DaysRow>;
   });
 
-  return <tbody>{days}</tbody>;
+  return <DaysBody>{days}</DaysBody>;
 };
 
 export default DaysInMonth;
+
+export const DaysBody = styled.tbody`
+  text-align: center;
+
+  td {
+    border-right: 1px solid #dcdedc;
+    border-bottom: 1px solid #dcdedc;
+  }
+`;
+
+export const DaysRow = styled.tr`
+  td:last-child {
+    border-right: none;
+  }
+
+  &:last-child td {
+    border-bottom: none;
+    border-right: 1px solid #dcdedc;
+  }
+`;
+
+export const DayContainer = styled.td`
+  height: 3rem;
+
+  &.today button {
+    color: #429fa8;
+    font-weight: bold;
+  }
+`;
+
+export const DayBtn = styled.button`
+  border: none;
+  background-color: white;
+
+  &:hover {
+    border-bottom: 1px solid #bad7da;
+  }
+`;

@@ -13,10 +13,7 @@ const Home = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div>
-        <h1>Calendar app</h1>
-        <Calendar />
-      </div>
+      <Calendar />
 
       <Footer />
     </div>

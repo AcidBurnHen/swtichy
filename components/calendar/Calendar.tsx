@@ -13,10 +13,7 @@ const Calendar = () => {
   const [parentDay, setParentDay] = useState(getDay);
 
   return (
-    <div>
-      <DateTitle>
-        {parentDay} {parentMonth} {parentYear}
-      </DateTitle>
+    <CalendarContainer>
 
       <SelectDate
         day={parentDay}
@@ -24,24 +21,41 @@ const Calendar = () => {
         setParentYear={setParentYear}
       />
 
-      <div>
-        <table>
-          <thead>
+      <CalendarTableContainer>
+        <CalendarTable>
+          <CalendarHeadings>
             <Weekdays />
-          </thead>
+          </CalendarHeadings>
           <DaysInMonth
             setParentDay={setParentDay}
             month={parentMonth}
             year={parentYear}
           />
-        </table>
-      </div>
-    </div>
+        </CalendarTable>
+      </CalendarTableContainer>
+    </CalendarContainer>
   );
 };
 
 export default Calendar;
 
-export const DateTitle = styled.h1`
-  font-size: 20px;
+export const CalendarContainer = styled.div`
+  margin: 40px 0;
+`
+
+export const CalendarTableContainer = styled.div`
+  margin:  0;
+  border: 1px solid #cccccf;
+  border-radius: 10px;
+  overflow: hidden;
+`;
+
+export const CalendarTable = styled.table`
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  
+`;
+
+export const CalendarHeadings = styled.thead`
 `;
