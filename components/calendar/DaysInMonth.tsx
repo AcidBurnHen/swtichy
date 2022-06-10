@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { Dispatch, FC, MouseEvent, SetStateAction } from 'react';
 import {
   getDay,
@@ -9,6 +10,7 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { start } from 'repl';
 
 interface Month {
   setParentDay: Dispatch<SetStateAction<string>>;
@@ -34,40 +36,50 @@ const DaysInMonth: FC<Month> = ({ setParentDay, month, year }) => {
   };
 
   const firstDay = getFirstDayOfCalendar(month, year);
-  const startDay = firstDay.clone();
   const lastDay = getLastDayOfCalendar(month, year);
-  
-  const daysInAMonth = [];
+  const monthStart = getFirstDayOfMonth(month, year);
+  const monthEnd = getLastDayOfMonth(month, year);
+
+  let daysInAMonth = [];
 
   while (firstDay.isBefore(lastDay, 'day')) {
     daysInAMonth.push(
       Array(7)
         .fill(0)
-        .map(() => firstDay.add(1, 'day').clone().format("DD"))
+        .map(() => firstDay.add(1, 'day').clone())
     );
   }
 
-  function classes(d: string) {
-    if (d === day) {
-      return "selected"
+  function classes(d: Moment) {
+    const thisDay = d.toString();
+    if (thisDay === day) {
+      return 'selected';
     }
 
-    if (d === getDay) {
-      return "today"
+    if (thisDay === getDay) {
+      return 'today';
+    }
+
+    if (d.isBefore(monthStart, 'month')) {
+      return 'before';
+    }
+
+    if (d.isAfter(monthEnd, 'month')) {
+      return 'after';
     }
   }
 
-  const days = daysInAMonth.map((week,i) => (
-    <DaysRow key={i}>
+  const days = daysInAMonth.map((week) => (
+    <DaysRow key={Number(week)}>
       {week.map((d) => (
-        <DayContainer className={classes(d.toString())} key={d}>
-        <DayBtn value={d} onClick={handleDay}>
-          {d}
-        </DayBtn>
-      </DayContainer>
+        <DayContainer className={classes(d)} key={d.format('DD')}>
+          <DayBtn value={d.format('DD')} onClick={handleDay}>
+            {d.format('DD')}
+          </DayBtn>
+        </DayContainer>
       ))}
     </DaysRow>
-  ))
+  ));
 
   return <DaysBody>{days}</DaysBody>;
 };
@@ -100,6 +112,14 @@ export const DayContainer = styled.td`
   &.today button {
     color: #429fa8;
     font-weight: bold;
+  }
+
+  &.before button {
+    color: gray;
+  }
+
+  &.after button {
+    color: gray;
   }
 `;
 

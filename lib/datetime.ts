@@ -40,7 +40,7 @@ export const getFirstDayOfMonth = (month: string, year: string): Moment => {
 }
 
 export const getFirstDayOfCalendar = (month: string, year: string): Moment => {
-  const startDay = moment(`${month} ${year}`, 'MMMM YYYY').startOf("week");
+  const startDay = moment(`${month} ${year}`, 'MMMM YYYY').startOf("month").startOf("week");
 
   return startDay;
 };
@@ -52,7 +52,7 @@ export const getLastDayOfMonth = (month: string, year: string): Moment => {
 }
 
 export const getLastDayOfCalendar = (month: string, year: string): Moment => { 
-  const endDay = moment(`${month} ${year}`, 'MMMM YYYY').endOf("week");
+  const endDay = moment(`${month} ${year}`, 'MMMM YYYY').endOf("month").endOf("week");
 
   return endDay;
  }
