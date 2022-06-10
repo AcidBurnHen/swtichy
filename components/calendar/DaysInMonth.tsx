@@ -6,11 +6,11 @@ import {
   getLastDayOfMonth,
   getFirstDayOfCalendar,
   getLastDayOfCalendar,
-} from '../../lib/datetime';
+} from '@/lib/datetime';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Events from './Events';
 import styled from 'styled-components';
-import { start } from 'repl';
 
 interface Month {
   setParentDay: Dispatch<SetStateAction<string>>;
@@ -51,13 +51,12 @@ const DaysInMonth: FC<Month> = ({ setParentDay, month, year }) => {
   }
 
   function classes(d: Moment) {
-    const thisDay = d.toString();
-    if (thisDay === day) {
-      return 'selected';
+    if (d.format('DD') === getDay) {
+      return 'today';
     }
 
-    if (thisDay === getDay) {
-      return 'today';
+    if (d.format('DD') === day) {
+      return 'selected';
     }
 
     if (d.isBefore(monthStart, 'month')) {
@@ -73,9 +72,12 @@ const DaysInMonth: FC<Month> = ({ setParentDay, month, year }) => {
     <DaysRow key={Number(week)}>
       {week.map((d) => (
         <DayContainer className={classes(d)} key={d.format('DD')}>
-          <DayBtn value={d.format('DD')} onClick={handleDay}>
-            {d.format('DD')}
-          </DayBtn>
+          <div>
+            <Events />
+            <DayBtn value={d.format('DD')} onClick={handleDay}>
+              {d.format('DD')}
+            </DayBtn>
+          </div>
         </DayContainer>
       ))}
     </DaysRow>
@@ -115,11 +117,11 @@ export const DayContainer = styled.td`
   }
 
   &.before button {
-    color: gray;
+    color: lightgray;
   }
 
   &.after button {
-    color: gray;
+    color: lightgray;
   }
 `;
 

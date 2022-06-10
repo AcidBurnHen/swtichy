@@ -1,18 +1,18 @@
-import { getWeekdays } from "../../lib/datetime"
-import styled from "styled-components";
-import { device } from "../../lib/helpers/devices";
+import { getWeekdays } from '@/lib/datetime';
+import styled from 'styled-components';
+import { device } from '@/lib/helpers/devices';
 
 const Weekdays = () => {
-    const weekdays = getWeekdays();
+  const weekdays = getWeekdays();
 
-    const tableHeadings = weekdays.map((day, index) => {
-        return <CalendarHeading key={index}>{day}</CalendarHeading>;
-      });
+  const tableHeadings = weekdays.map((day, index) => {
+    return <CalendarHeading key={index}>{day}</CalendarHeading>;
+  });
 
-    return <tr>{tableHeadings}</tr>
-}
+  return <tr>{tableHeadings}</tr>;
+};
 
-export default Weekdays
+export default Weekdays;
 
 export const CalendarHeading = styled.th`
   font-size: 0.3rem;
@@ -21,7 +21,7 @@ export const CalendarHeading = styled.th`
   border-right: 1px solid #cccccf;
   border-bottom: 1px solid #cccccf;
   background-color: #e4f6f7;
-  
+
   &:last-child {
     border-right: none;
   }
@@ -37,4 +37,4 @@ export const CalendarHeading = styled.th`
   @media ${device.atMobileL} {
     font-size: 0.6rem;
   }
-`
+`;

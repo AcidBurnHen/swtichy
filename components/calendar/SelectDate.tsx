@@ -4,11 +4,11 @@ import {
   getMonth,
   getYear,
   getYears,
-} from '../../lib/datetime';
+} from '@/lib/datetime';
 import { useState, ChangeEvent, FC, SetStateAction, Dispatch } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import {device} from '../../lib/helpers/devices';
+import { device } from '@/lib/helpers/devices';
 
 interface MonthProps {
   day: string;
@@ -130,9 +130,7 @@ export default SelectDate;
 export const SelectContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr, 1fr;
-  grid-template-rows: 1fr, 1fr
-
-  @media ${device.atMobileM} {
+  grid-template-rows: 1fr, 1fr @media ${device.atMobileM} {
     grid-template-rows: 1fr;
     grid-template-columns: repeat(4, 1fr);
   }
@@ -162,7 +160,6 @@ export const DateSelectContainer = styled.div`
     grid-column: 4 / span 2;
     justify-self: end;
   }
-
 `;
 
 export const MonthBtnContainer = styled.div`
@@ -186,7 +183,7 @@ export const DateSelect = styled.select`
   }
 
   &:hover {
-    border: 1px solid #429fa8;;
+    border: 1px solid #429fa8;
   }
 `;
 
@@ -203,6 +200,6 @@ export const MonthBtn = styled.button`
   }
 
   &:hover {
-    border: 1px solid #429fa8;;
+    border: 1px solid #429fa8;
   }
 `;
