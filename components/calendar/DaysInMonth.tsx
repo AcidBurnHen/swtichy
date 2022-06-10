@@ -2,7 +2,9 @@ import { Dispatch, FC, MouseEvent, SetStateAction } from 'react';
 import {
   getDay,
   getFirstDayOfMonth,
-  getNumOfDaysInMonth,
+  getLastDayOfMonth,
+  getFirstDayOfCalendar,
+  getLastDayOfCalendar,
 } from '../../lib/datetime';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -15,8 +17,6 @@ interface Month {
 }
 
 const DaysInMonth: FC<Month> = ({ setParentDay, month, year }) => {
-  const firstDay = getFirstDayOfMonth(month, year);
-  const monthDays = getNumOfDaysInMonth(month, year);
   const { push } = useRouter();
 
   const [day, setDay] = useState(getDay);
@@ -33,44 +33,41 @@ const DaysInMonth: FC<Month> = ({ setParentDay, month, year }) => {
     setParentDay(day);
   };
 
-  let emptySpace = [];
-  for (let i = 1; i < firstDay; i++) {
-    emptySpace.push(<td>{''}</td>);
+  const firstDay = getFirstDayOfCalendar(month, year);
+  const startDay = firstDay.clone();
+  const lastDay = getLastDayOfCalendar(month, year);
+  
+  const daysInAMonth = [];
+
+  while (firstDay.isBefore(lastDay, 'day')) {
+    daysInAMonth.push(
+      Array(7)
+        .fill(0)
+        .map(() => firstDay.add(1, 'day').clone().format("DD"))
+    );
   }
 
-  let daysInAMonth = [];
-  for (let d = 1; d <= monthDays; d++) {
-    let currentDay = d === Number(day) ? "today" : "";
-    daysInAMonth.push(
-      <DayContainer className={currentDay} key={d}>
+  function classes(d: string) {
+    if (d === day) {
+      return "selected"
+    }
+
+    if (d === getDay) {
+      return "today"
+    }
+  }
+
+  const days = daysInAMonth.map((week,i) => (
+    <DaysRow key={i}>
+      {week.map((d) => (
+        <DayContainer className={classes(d.toString())} key={d}>
         <DayBtn value={d} onClick={handleDay}>
           {d}
         </DayBtn>
       </DayContainer>
-    );
-  }
-
-  const totalSpace = [...emptySpace, ...daysInAMonth];
-  let rows: any[] = [];
-  let cells: any[] = [];
-
-  totalSpace.forEach((row, i) => {
-    if (i % 7 !== 0) {
-      cells.push(row);
-    } else {
-      rows.push(cells);
-      cells = [];
-      cells.push(row);
-    }
-
-    if (i === totalSpace.length - 1) {
-      rows.push(cells);
-    }
-  });
-
-  const days = rows.map((d: string, i: number) => {
-    return <DaysRow key={i}>{d}</DaysRow>;
-  });
+      ))}
+    </DaysRow>
+  ))
 
   return <DaysBody>{days}</DaysBody>;
 };

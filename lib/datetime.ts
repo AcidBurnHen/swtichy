@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 const moment = require('moment');
 
 export const dateData = moment().clone();
@@ -31,12 +33,26 @@ export const getWeekdays = (): string[] => {
   return days;
 };
 
-export const getNumOfDaysInMonth = (month: string, year: string): number =>
-  moment(`${month} ${year}`, 'MMMM YYYY').daysInMonth();
+export const getFirstDayOfMonth = (month: string, year: string): Moment => {
+  const day1 = moment(`${month} ${year}`, 'MMMM YYYY').startOf('month')
 
-export const getFirstDayOfMonth = (month: string, year: string): number => {
-  const day1 = moment(`${month} ${year}`, 'MMMM YYYY').startOf('month');
-  const day = day1.day();
+  return day1
+}
 
-  return Number(day);
+export const getFirstDayOfCalendar = (month: string, year: string): Moment => {
+  const startDay = moment(`${month} ${year}`, 'MMMM YYYY').startOf("week");
+
+  return startDay;
 };
+
+export const getLastDayOfMonth = (month: string, year: string): Moment => {
+  const lastDay = moment(`${month} ${year}`, 'MMMM YYYY').endOf('month')
+
+  return lastDay
+}
+
+export const getLastDayOfCalendar = (month: string, year: string): Moment => { 
+  const endDay = moment(`${month} ${year}`, 'MMMM YYYY').endOf("week");
+
+  return endDay;
+ }
