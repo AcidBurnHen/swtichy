@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@octokit/types": "^6.34.0",
     "moment": "^2.29.3",
     "next": "12.1.6",
     "octokit": "^1.7.2",

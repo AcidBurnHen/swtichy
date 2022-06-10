@@ -4,7 +4,38 @@ import Head from 'next/head';
 import Footer from '../components/Footer';
 import Calendar from '../components/calendar/Calendar';
 
-const Home = () => {
+import { Octokit } from 'octokit';
+import { Endpoints } from '@octokit/types';
+import { GetStaticProps } from 'next';
+import { FC } from 'react';
+
+import { CalendarContext } from 'CalendarContext';
+
+const octokit = new Octokit({ auth: process.env.REPO_TOKEN });
+
+type listUserCommitsRes =
+  Endpoints['GET /repos/{owner}/{repo}/commits']['response'];
+
+export const getStaticProps: GetStaticProps = async () => {
+  const commits = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+    owner: 'AcidBurnHen',
+    repo: 'swtichy',
+  });
+
+  return {
+    props: {
+      commits: commits,
+    },
+  };
+};
+
+interface Props {
+  commits: listUserCommitsRes;
+}
+
+const Home: FC<Props> = (props) => {
+
+
   return (
     <div>
       <Head>
@@ -13,7 +44,9 @@ const Home = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Calendar />
+      <CalendarContext.Provider value={props}>
+        <Calendar />
+      </CalendarContext.Provider>
 
       <Footer />
     </div>
